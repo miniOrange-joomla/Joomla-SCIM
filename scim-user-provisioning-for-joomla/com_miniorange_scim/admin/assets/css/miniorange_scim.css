@@ -1,0 +1,1264 @@
+/* Joomla 3/4/5 Compatible CSS - No CSS variables used for Joomla 3 compatibility */
+.content {
+    padding: 0 !important;
+}
+
+.mo_scim_navbar_wrapper {
+    display: flex;
+    background-color: #FFFFFF;
+}
+
+.mo_scim_tab_content_wrapper {
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px #C6D4E8;
+}
+
+.tab-content {
+    margin-top: 0;
+    padding: 2% 8% !important;
+}
+
+.mo_scim_hidden_file_input {
+    display: none;
+}
+
+.mo_scim_form_wrapper {
+    background-color: #F3F7FC !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.mo_scim_table {
+    background-color: #F3F7FC !important;
+    border: 1px solid #b8c9e0 !important;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.mo_scim_table_bordered {
+    border: 1px solid #b8c9e0 !important;
+}
+
+.mo_scim_table td, .mo_scim_table th {
+    border-color: #b8c9e0 !important;
+}
+
+.mo_scim_icon {
+    height: 50px !important;
+    width: 50px !important;
+    background-image: url("../images/miniorange_i.ico");
+    line-height: 50px !important;
+    vertical-align: middle;
+}
+
+#isisJsData .subhead {
+    display: none !important;
+}
+
+.mo_table_layout {
+    background-color: #F3F7FC !important;
+    border: 1px solid #b8c9e0 !important;
+    padding: 0px 10px 10px 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.copytooltip {
+    position: relative;
+    display: inline-block;
+    size: letter;
+}
+
+/* Tooltip text */
+.copytooltip .copytooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: grey;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 12px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    font-size: small;
+    opacity: 50;
+    transition: opacity 0.3s;
+}
+
+.copytooltip .copytooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.copytooltip:active .copytooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.close {
+    float: right;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    filter: alpha(opacity=20);
+    opacity: .2;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+button.close {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.mo_scim_table_layout_1 {
+    background-color: white;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px 0px #C6D4E8;
+    padding: 2% 8% !important;
+}
+
+/* Main section wrapper matching custom API */
+.mo_boot_row.mo_boot_m-1.mo_boot_p-3.mo_boot_col-sm-12 {
+    background-color: #F3F7FC !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 15px 0;
+    padding: 20px !important;
+}
+
+/*===============================*/
+.moScimAttributeColumns {
+    margin-left: -1%;
+}
+
+.moScimAttributeColumns div {
+    width: 37%;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.moScimAttributeName {
+    margin-left: 1%;
+    margin-left: 3%;
+    height: 40px;
+    min-height: 40px;
+    width: 35% !important;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    flex: none;
+    border-radius: 7px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.moScimAttributeValue {
+    margin-left: 3%;
+    width: 220px;
+    height: 40px;
+    min-height: 40px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    flex: none;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 7px;
+}
+
+.mo_scim_textfield {
+    border: 0.01px solid #ced4da !important;
+    border-radius: 4px;
+    resize: vertical;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+    background-color: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    min-height: 40px;
+}
+
+.mo_scim_textfield[type="text"],
+.mo_scim_textfield[type="email"],
+.mo_scim_textfield[type="password"] {
+    height: calc(2.5rem + 2px);
+}
+
+select.mo_scim_textfield {
+    height: calc(2.5rem + 2px)!important;
+    min-height: 40px;
+}
+
+.mo_nav-tab:hover {
+    background-color: #001b4c;
+}
+
+.mo_nav-tab,
+.mo_nav-tab {
+    flex: 1;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    text-wrap: wrap;
+    background: #ffffff;
+    color: #212529;
+    padding: 2px 4px;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+    display: inline-table !important;
+    margin: 0px 0px !important;
+}
+
+.mo_nav_tab_active,
+.mo_nav_tab_active {
+    background-color: #e6f0ff !important; 
+    color: #000000 !important;
+    border-bottom: 3px solid #001b4c !important;
+}
+
+.mo_nav-tab:hover,
+.mo_nav-tab:hover {
+    background-color: #e6f0ff !important;
+    color: #000000 !important;
+}
+
+.mo_nav_tab_active:hover,
+.mo_nav_tab_active:hover {
+    background-color: #e6f0ff !important;
+    color: #000000 !important;
+    border-bottom: 3px solid #001b4c !important;
+}
+
+.mo_copy {
+
+    padding: 8px;
+    background-color: #d3cccc;
+    cursor: pointer;
+    border-radius: 3px;
+    float: right;
+    color: black;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.mo_copy:active {
+    background: gray;
+}
+
+.form-head {
+    position: relative;
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 8px;
+    display: inline-block;
+    color: #000000;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #001b4c;
+}
+
+.form-head:after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: #001b4c;
+    margin-top: 8px;
+    border-radius: 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.mo_works-step {
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.mo_works-step div {
+    color: #001b4c;
+    border: 2px solid #001b4c;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 8px;
+    float: left;
+    font-size: 15px;
+    margin-right: 25px;
+    margin-bottom: 27px;
+}
+
+.mo_works-step p {
+    font-size: 15px;
+    text-align: left;
+    font-family: Inter, sans-serif;
+}
+
+.mo_scim_faq_page {
+    margin: 0;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    padding: 0.5em;
+    line-height: 34px;
+    letter-spacing: 0.2px;
+    font-family: Inter, sans-serif;
+}
+
+.mo_scim_faq_page.mo_saml_active {
+    color: #001b4c;
+}
+
+.mo_scim_faq_body {
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 2em 2em 0em 2em;
+    display: none;
+    overflow: hidden;
+}
+
+.mo_scim_faq_page:hover {
+    background-color: #F2F2F2;
+}
+
+.mo_scim_faq_page.mo_saml_active {
+    background-color: #F2F2F2;
+}
+
+.mo_scim_faq_page:after {
+    content: '\02795';
+    font-size: 15px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.mo_scim_faq_page.mo_saml_active:after {
+    content: "\2796";
+}
+
+@media (min-width: 640px) {
+    .mo-button,
+    .mo-button.medium {
+        width: auto
+    }
+}
+
+.crown_img_small {
+    width: 20px !important;
+}
+
+.row {
+    margin: 0;
+}
+
+.col-12 {
+    padding: 0;
+}
+
+
+hr {
+    border: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+}
+
+.card {
+    background-color: #ffffff;
+    border-color: #dddddd;
+}
+
+.mo-form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.5rem + 2px)!important;
+    min-height: 40px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 0.01px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.mo-form-control-textarea{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 0.01px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.mo-form-control-select {
+    height: calc(2.5rem + 2px)!important;
+    min-height: 40px;
+}
+
+
+:root[data-color-scheme=dark] {
+
+    .mo_scim_navbar_wrapper, .mo_scim_tab_content_wrapper {
+        background: #0f151d;
+        color: #ffffff;
+    }
+
+    .mo_scim_textfield{
+    background-color: #0f151d;
+    color: #FFFFFF;
+    border-color: #ffffff;
+    }
+
+    .mo-form-control, .mo-form-control-textarea{
+        background-color: #0f151d;
+        color: #FFFFFF;
+    }
+
+    .mo-form-control,
+    .mo-form-control-select,
+    .mo-form-control-textarea {
+        background-color: #0f151d;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .mo-form-control:focus,
+    .mo-form-control-select:focus,
+    .mo-form-control-textarea:focus {
+        background-color: #0f151d;
+        border-color: #ffffff;
+        color: #ffffff;
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+    }
+
+    .mo_scim_dark_white {
+        color: #ffffff;
+    }
+
+    .container-fluid {
+        background-color: #212529;
+        color: #ffffff;
+    }
+
+    .mo_nav-tab:hover {
+        background-color: #e6f0ff !important;
+        color: #000000 !important;
+    }
+
+    .mo_nav-tab {
+        color: #ffffff !important;
+        background-color: #0f151d;
+    }
+
+    .mo_scim_table_layout_1 {
+        background-color: #0f151d;
+        overflow: hidden;
+        box-shadow: 0px 4px 4px 0px #484848;
+    }
+
+    .mo_scim_faq_page:hover {
+        background-color: #3c3b3b;
+    }
+
+    .mo_works-step div {
+        color: #ffffff;
+        border: 2px solid #f7faff;
+    }
+
+    .mo_boot_btn-primary, .mo_scim_button {
+        background: transparent;
+        border-color: white;
+        color: #ffffff;
+    }
+
+    .mo_boot_btn-primary:hover, .mo_scim_button:hover {
+        background: #141d30;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    select.mo_scim_config_idp {
+        background-color: #11161c;
+        border-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .mo_boot_alert-info {
+        background-color: #495057;
+        color: #ffffff;
+    }
+
+    .mo_scim_note_crud {
+        background-color: #e6f0ff;
+        color: #000000;
+        border-left: 4px solid #ffffff;
+    }
+
+    .mo_nav_tab_active:hover,
+    .mo_nav_tab_active:hover {
+        background-color: #e6f0ff !important;
+        color: #000000 !important;
+        border-bottom: 3px solid #ffffff !important;
+    }
+
+    .mo_nav_tab_active,
+    .mo_nav_tab_active {
+        background-color: #e6f0ff !important;
+        color: #000000 !important;
+        border-bottom: 3px solid #ffffff !important;
+    }
+
+    .mo_scim_support {
+        background-color: #0f151d;
+        border-color: white;  
+    }
+
+    .mo_scim_support:hover,.mo_scim_sup_btn {
+        background-color: #212529;
+    }
+    .form-head {
+        color: #ffffff;
+        border-bottom: 2px solid #ffffff;
+    }
+
+    .form-head:after{
+        background-color: #ffffff;
+    }
+
+    .mo_table_layout, .mo_scim_form_wrapper, .mo_boot_row.mo_boot_m-1.mo_boot_p-3.mo_boot_col-sm-12 {
+        background-color: #171c24 !important;
+        color: #ffffff;
+        border-color: #ffffff;
+    }
+
+    .mo_scim_table {
+        background-color: #0f151d !important;
+        border-color: #ffffff !important;
+    }
+
+    .mo_scim_table td, .mo_scim_table th {
+        border-color: #ffffff !important;
+        color: #ffffff;
+    }
+
+    .mo_scim_sup, .mo_scim_sup_btn {
+        background-color: #171c24 !important;
+    }
+
+    .mo_heading_export_btn, .mo_heading_export_btn:hover {
+        background-color: #0f151d !important;
+        border: 1px solid #ffffff;
+    }
+
+    .mo_export_blue_buttons {
+        background-color: #0f151d;
+        border: 1px solid #ffffff;
+    }
+  
+}
+
+.mo_nav_tab_active,.mo_nav_tab_active {
+    background-color: #e6f0ff !important;
+    color: #000000 !important;
+    border-bottom: 3px solid #001b4c !important;
+}
+
+.moScimAttributeValue {
+    margin-left: 3%;
+    height: 40px;
+    min-height: 40px;
+    width: 35%;
+    background-color: white;
+    border: 1px solid #868383 !important;
+    border-radius: 7px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.mo_nav-tab {
+    padding: 10px;
+}
+
+.mo_nav-tab i {
+    margin-right: 8px;
+    margin-left: 5px;
+}
+
+.mo_nav_tab_icon {
+    display: inline-block;
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+}
+
+.mo_nav_tab_icon i {
+    font-size: 16px;
+    line-height: 1;
+    display: inline-block !important;
+}
+
+@media (min-width: 769px) {
+    .mo_nav-tab .tab-label {
+        display: inline;
+    }
+}
+
+.mo_scim_overview_image {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.mo_scim_section_box {
+    background-color: #F3F7FC !important;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.mo_scim_content_box {
+    background-color: #F3F7FC !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.mo_scim_pricing-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 12px;
+}
+
+.mo_scim_pricing-card {
+    flex: 1;
+    background: #F3F7FC;
+    padding: 30px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.mo_scim_pricing-card h3 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.mo_scim_pricing-card h3 strong {
+    font-size: 28px;
+    color: #001b4c;
+    font-weight: 700;
+}
+
+.mo_scim_pricing-card .mo_scim_contact-btn {
+    background-color: #ff9500;
+    border: 1px solid #ff9500;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.mo_scim_pricing-card .mo_scim_contact-btn:hover {
+    background-color: #e68600;
+    color: white;
+    text-decoration: none;
+}
+
+.mo_scim_feature-section {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.mo_scim_feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.mo_scim_feature-header:hover {
+    color: #001b4c;
+}
+
+.mo_scim_square_check {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.mo_scim_feature_arrow {
+    color: #666;
+    transition: transform 0.3s;
+}
+
+.mo_scim_feature-list {
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.mo_scim_feature-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mo_scim_feature-list li {
+    display: grid;
+    grid-template-columns: 20px auto;
+    align-items: start;
+    font-size: 15px;
+    margin: 8px 0;
+    padding: 8px 0;
+    color: #000000;
+    border-bottom: 1px solid #B8C9E0;
+}
+
+.mo_scim_feature-list li::before {
+    content: "●";
+    font-weight: bold;
+    font-size: 14px;
+    color: #979797;
+    display: inline-block;
+}
+
+@media (max-width: 991px) {
+    .mo_scim_pricing-container {
+        flex-direction: column;
+    }
+    
+    .mo_scim_overview_image {
+        max-width: 80%;
+        margin: 20px auto;
+        display: block;
+        min-height: 300px;
+    }
+    
+    .mo_boot_container-fluid.mo_boot_m-0.mo_boot_p-0 p {
+        text-align: left;
+    }
+}
+
+.mo_scim_steps~p {
+    text-align: justify;
+}
+
+.mo_scim_content p {
+    font-size: 14px
+}
+
+.mo_scim_operation {
+    width: 100%;
+    background-color: #F3F7FC !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.mo_scim_operation h4 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.mo_scim_operation hr {
+    border: none;
+    border-top: 1px solid #dee2e6;
+    margin: 15px 0 20px 0;
+}
+
+.mo_scim_operation dl dd {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.mo_scim_operation dl dd strong {
+    color: #001b4c;
+    font-weight: 600;
+}
+
+.mo_scim_select_idp {
+    width: 28.6667%;
+}
+
+.mo_scim_ip {
+    width: 20%;
+    align-content: center;
+}
+.mo_scim_confg_idp{
+    display: flex;
+}
+.mo_scim_note_crud {
+    background-color: #e7f3ff;
+    border: 1px solid #b8daff;
+    border-radius: 6px;
+    padding: 12px;
+    width: fit-content;
+}
+
+.mo_scim_note_list{
+    list-style-type: none;
+}
+
+.mo_scim_button {
+    color: #ffffff;
+    background-color: #007cba;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.mo_scim_button:hover {
+    background-color: #005a87;
+    color: #ffffff;
+}
+
+.form-switch {
+    margin-bottom: 1rem;
+}
+
+
+.mo_scim_config_idp {
+    color: #212529;
+    border-radius: 4px;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    display: block;
+    border: 0.01px solid #ced4da;
+    background-color: #fff;
+    min-height: 40px;
+}
+
+select.mo_scim_config_idp {
+    background-color: white;
+    height: calc(2.5rem + 2px)!important;
+    min-height: 40px;
+}
+
+.mo_scim_config_note {
+    color: #000000;
+}
+
+.userAttributeMinusButton {
+    margin: 0px 0px 8px 12px;
+    width: 36px;
+    height: 32px;
+    line-height: 1;
+    background-color: red;
+    border-radius: 7px;
+    border: black;
+    color: white;
+}
+
+.userProfileAttributeRows {
+    display: flex;
+    align-items: baseline;
+    padding-bottom: 0% !important;
+}
+
+.mo_works-step .mo_scim_number {
+    padding-top: 2px;
+    font-weight: bold;
+}
+
+.mo_scim_mapping_subhead h5 {
+    font-size: 1.25em;
+}
+
+.mo_scim_mapping_subhead h6 {
+    font-size: 1rem;
+    margin-left: 16px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.mo_scim_table {
+    width: 100%;
+}
+
+.mo_scim_table td,
+.mo_scim_table th {
+    word-break: break-all;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .mo_scim_table td {
+        display: block;
+        text-align: left;
+        position: relative;
+    }
+
+    .imgBox img {
+        display: none;
+    }
+
+    .mo_scim_config_idp {
+        width: 306%;
+    }
+
+    .mo_nav-tab .tab-label {
+        display: none;
+    }
+
+    .mo_scim_mapping_subhead h5 {
+        font-size: 1.2em;
+    }
+
+    .mo_scim_ip {
+        width: 35%;
+        padding-bottom: 4px;
+        padding-left: 0px;
+     
+    }  
+}
+
+@media(max-width: 768px){
+    .mo_nav-tab:hover .tab-label,
+    .mo_nav_tab_active .tab-label {
+        display: inline;
+        padding-right: 5px;
+    }
+}
+
+.mo_nav-tab {
+    flex: 1;
+    font-size: 14px;
+    color: #212529;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    text-wrap: wrap;
+    background: #ffffff;
+    padding: 2px 4px;
+    transition: background-color 0.3s, color 0.3s;
+    border: none;
+}
+.mo_scim_support {
+    float: right;
+    font-weight: 500;
+    border-radius: 18px;
+    color: white;
+    background-color: #f7b733;
+    text-decoration: none !important;
+    padding: 8px 16px;
+    font-weight: bold;
+}
+
+
+.mo_scim_support_head h3{
+    font-weight: bold;
+}
+
+.mo_scim_support:hover {
+    background-color: #f7981d !important;
+    color: #000000 !important;
+}
+
+.subhead-container {
+    align-content: center;
+}
+.mo_tfa_install_btns{
+    background-color: #001b4c;
+    color: white;
+}
+.mo_scim_sup{
+    position: sticky;
+    background: #F3F7FC;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.mo_scim_form{
+opacity: 1 !important;  
+}
+.mo_scim_role_btn p{
+    display: flex;
+    justify-content: center;
+}
+.mo_scim_support_save{
+    display: flex;
+    justify-content: center;
+}
+.mo_scim_support {
+    float: right;
+    margin-right: 10px;
+    font-weight: 500;
+    border-radius: 10px;
+}
+.mo_scim_sup_btn{
+    position: sticky;
+    background: #F3F7FC;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mo_heading_export_btn, .mo_heading_export_btn:hover{
+	float:right; 
+	margin-right:10px;
+	font-weight:500;
+	border-radius:18px;
+	background-color:#3D618F!important;
+	border:1px solid #FFFFFF;
+	color: #FFFFFF!important;
+	text-decoration:none;
+}
+
+.mo_export_heading{
+	font-size:20px;
+	color:#212529;
+}
+.mo_export_heading::after{
+	height:4px;
+	display:block;
+	background-color:#212529;
+	content:" ";
+	width:325px;
+	margin-top:11px
+}
+
+.mo_export_blue_buttons {
+    background-color:#3D618F;
+    color: #fff;
+    border: 1px solid #212529;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.mo_export_blue_buttons:hover {
+    background-color: #001b4c;
+    color: #fff;
+}
+
+.mo_export_blue_buttons:disabled {
+    opacity: 0.8;
+    cursor: not-allowed; 
+    background-color: #3D618F;
+    color: #fff;
+    border: 1px solid #212529; 
+}
+
+.mo_export_white_color {
+    color: #fff;
+}
+
+.mo_scim_highlight {
+    background: #F7F7F7;
+    padding: 10px 15px;
+    border-left: 4px solid #043f8e;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.form-style-6 {
+    font: 95% Arial, Helvetica, sans-serif;
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 16px;
+    background: #F7F7F7;
+}
+
+.form-style-6 h1 {
+    background: #3D618F;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+}
+
+:root[data-color-scheme=dark]
+{
+	.mo_heading_export_btn,.mo_heading_export_btn:hover{
+		background-color:#0f151d;;
+		border:1px solid #ffffff;
+	}
+
+	.mo_export_blue_buttons{
+		background-color:#0f151d;;
+		border:1px solid #ffffff;
+	}
+
+    .mo_export_heading{
+        font-size:20px;
+        color:#ffffff;
+    }
+    .mo_export_heading::after{
+        background-color:#ffffff;
+    }
+
+    .mo_scim_highlight {
+        background: #0f151d;
+        border-left: 4px solid #ffffff;
+    }
+
+    .mo_scim_section_box,
+    .mo_scim_content_box {
+        background-color: #171c24 !important;
+        color: #ffffff !important;
+    }
+
+    .mo_scim_operation {
+        background-color: #171c24 !important;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+
+    .mo_scim_operation h4 {
+        color: #ffffff;
+    }
+
+    .mo_scim_config_note {
+        color: #ffffff !important;
+    }
+
+    .mo_scim_operation dl dd {
+        color: #e9ecef;
+    }
+
+    .mo_scim_operation dl dd strong {
+        color: #ffffff;
+    }
+
+    .mo_scim_pricing-container {
+        gap: 15px;
+    }
+
+    .mo_scim_pricing-card {
+        background: #171c24 !important;
+        border: 1px solid #ffffff;
+        color: #ffffff;
+    }
+
+    .mo_scim_pricing-card h3 {
+        color: #ffffff;
+    }
+
+    .mo_scim_pricing-card h3 strong {
+        color: #ffffff;
+    }
+
+    .mo_scim_pricing-card .mo_scim_contact-btn {
+        background-color: #ff9500;
+        border-color: #ff9500;
+        color: white;
+    }
+
+    .mo_scim_pricing-card .mo_scim_contact-btn:hover {
+        background-color: #e68600;
+        color: white;
+    }
+
+    .mo_scim_feature-header {
+        border-bottom-color: #495057;
+        color: #ffffff;
+    }
+
+    .mo_scim_feature-header:hover {
+        color: #e6f0ff;
+    }
+
+    .mo_scim_feature-list li {
+        color: #e9ecef;
+        border-bottom-color: #495057;
+    }
+
+    .mo_scim_feature-list li::before {
+        color: #979797;
+    }
+}

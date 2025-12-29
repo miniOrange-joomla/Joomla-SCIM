@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="library" method="upgrade">
+	<name>LIB_MINIORANGESCIMPLUGIN_NAME</name>
+	<libraryname>miniorangescimplugin</libraryname>
+	<license>GNU/GPLv3</license>
+	<version>4.0</version>
+	<author>miniOrange Security Software Pvt. Ltd.</author>
+	<authorEmail>info@xecurify.com</authorEmail>
+	<creationDate>March 2020</creationDate>
+	<description>Library containing plugin utility classes.</description>
+	<files>
+		<folder>language</folder>
+		<file>index.html</file>
+		<folder>utility</folder>
+		<folder>moscim</folder>
+	</files>
+	<languages>
+        <language tag="en-GB">language/en-GB/en-GB.lib_miniorangescimplugin.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.lib_miniorangescimplugin.sys.ini</language>
+    </languages>
+</extension>

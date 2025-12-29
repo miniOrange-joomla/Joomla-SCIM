@@ -1,0 +1,26 @@
+{
+    "plugin_overview": {
+        "icon": "fa-solid fa-table-list",
+        "label": "COM_MINIORANGE_SCIM_OVERVIEW"
+    },
+    "scimsettings": {
+        "icon": "fa-solid fa-tools",
+        "label": "COM_MINIORANGE_SCIM_CONFIG"
+    },
+    "scimmapping": {
+        "icon": "fa-solid fa-map",
+        "label": "COM_MINIORANGE_SCIM_MAPPING"
+    },
+    "scimrolemapping": {
+        "icon": "fa-solid fa-users",
+        "label": "COM_MINIORANGE_SCIM_ROLE_MAPPING"
+    },
+    "scimadvancesettings": {
+        "icon": "fa-solid fa-cogs",
+        "label": "COM_MINIORANGE_SCIM_ADVANCE_SETTINGS"
+    },
+    "upgradeplans": {
+        "icon": "fa-solid fa-circle-up",
+        "label": "COM_MINIORANGE_SCIM_UPGRADE"
+    }
+}

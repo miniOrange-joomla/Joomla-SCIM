@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_MINIORANGESCIMPLUGIN_NAME</name>
+	<creationDate>March 2020</creationDate>
+	<author>miniOrange Security Software Pvt. Ltd.</author>
+    <authorEmail>info@xecurify.com</authorEmail>
+    <authorUrl>https://www.miniorange.com/</authorUrl>
+    <copyright>Copyright (C) 2015 miniOrange. All rights reserved.</copyright>
+    <license>GNU General Public License version 3; see LICENSE.txt</license>  
+	<version>4.0</version>
+	<description>PLG_SYSTEM_MINIORANGESCIM_XML_DESCRIPTION</description>
+	<scriptfile>myscript.php</scriptfile>
+	<files>
+		<file>index.html</file>
+		<filename plugin="miniorangescim">miniorangescim.php</filename>		
+		<folder>language</folder>
+	</files>
+	<languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_system_miniorangescim.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_system_miniorangescim.sys.ini</language>
+    </languages>
+</extension>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>COM_MINIORANGE_SCIM</name>
+	<creationDate>March 2020</creationDate>
+	<author>miniOrange Security Software Pvt. Ltd.</author>
+	<authorEmail>info@xecurify.com</authorEmail>
+	<authorUrl>http://miniorange.com</authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<version>4.0</version>
+	<description>This provides SCIM protocol.</description>
+ 
+	<install> <!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+    </update> 
+		
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>router.php</filename>
+	</files>
+ 	 <languages folder="languages/site">
+        	<language tag="en-GB">en-GB/en-GB.com_miniorange_scim.ini</language>
+
+	 </languages>
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu link="index.php?option=com_miniorange_scim">Joomla miniOrange SCIM</menu>
+		  <submenu>
+            		<menu link="option=com_miniorange_scim&amp;tab-panel=plugin_overview"  view="accountsetup">COM_MINIORANGE_SCIM_OVERVIEW</menu>
+            		<menu link="option=com_miniorange_scim&amp;tab-panel=scimsettings"  view="accountsetup">COM_MINIORANGE_SCIM_CONFIG</menu>
+            		<menu link="option=com_miniorange_scim&amp;tab-panel=scimmapping"  view="accountsetup">COM_MINIORANGE_SCIM_MAPPING</menu>
+            		<menu link="option=com_miniorange_scim&amp;tab-panel=scimrolemapping"  view="accountsetup">COM_MINIORANGE_SCIM_ROLE_MAPPING</menu>
+            		<menu link="option=com_miniorange_scim&amp;tab-panel=scimadvancesettings"  view="accountsetup">COM_MINIORANGE_SCIM_ADVANCE_SETTINGS</menu>
+            		<menu link="option=com_miniorange_scim&amp;tab-panel=upgradeplans"  view="accountsetup">COM_MINIORANGE_SCIM_UPGRADE</menu>
+        	</submenu>
+		
+		<files folder="admin">
+			<!-- Admin Main File Copy Section -->
+			<filename>index.html</filename>
+			<filename>miniorange_scim.php</filename>
+			<filename>controller.php</filename>
+			<!-- helper files section -->
+			<folder>controllers</folder>
+			<folder>sql</folder>
+			<!-- models files section -->
+			<folder>views</folder>
+			<folder>helpers</folder>
+			<folder>assets</folder>
+		</files>
+		<languages folder="languages/administrator">
+            <language tag="en-GB">en-GB/en-GB.com_miniorange_scim.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_miniorange_scim.sys.ini</language>
+			<language tag="fr-FR">fr-FR/fr-FR.com_miniorange_scim.ini</language>
+			<language tag="fr-FR">fr-FR/fr-FR.com_miniorange_scim.sys.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_miniorange_scim.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_miniorange_scim.sys.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_miniorange_scim.ini</language>
+			<language tag="nl-NL">nl-NL/nl-NL.com_miniorange_scim.sys.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_miniorange_scim.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_miniorange_scim.sys.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_miniorange_scim.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_miniorange_scim.sys.ini</language>
+
+			<language tag="zh-CN">zh-CN/zh-CN.com_miniorange_scim.ini</language>
+			<language tag="zh-CN">zh-CN/zh-CN.com_miniorange_scim.sys.ini</language>
+
+			<language tag="cs-CZ">cs-CZ/cs-CZ.com_miniorange_scim.ini</language>
+			<language tag="cs-CZ">cs-CZ/cs-CZ.com_miniorange_scim.sys.ini</language>
+
+			<language tag="da-DK">da-DK/da-DK.com_miniorange_scim.ini</language>
+			<language tag="da-DK">da-DK/da-DK.com_miniorange_scim.sys.ini</language>
+
+			<language tag="el-GR">el-GR/el-GR.com_miniorange_scim.ini</language>
+			<language tag="el-GR">el-GR/el-GR.com_miniorange_scim.sys.ini</language>
+
+			<language tag="hu-HU">hu-HU/hu-HU.com_miniorange_scim.ini</language>
+			<language tag="hu-HU">hu-HU/hu-HU.com_miniorange_scim.sys.ini</language>
+
+			<language tag="ja-JP">ja-JP/ja-JP.com_miniorange_scim.ini</language>
+			<language tag="ja-JP">ja-JP/ja-JP.com_miniorange_scim.sys.ini</language>
+
+			<language tag="pt-BR">pt-BR/pt-BR.com_miniorange_scim.ini</language>
+			<language tag="pt-BR">pt-BR/pt-BR.com_miniorange_scim.sys.ini</language>
+
+			<language tag="sv-SE">sv-SE/sv-SE.com_miniorange_scim.ini</language>
+			<language tag="sv-SE">sv-SE/sv-SE.com_miniorange_scim.sys.ini</language>
+
+
+			<language tag="sr-YU">sr-YU/sr-YU.com_miniorange_scim.ini</language>
+			<language tag="sr-YU">sr-YU/sr-YU.com_miniorange_scim.sys.ini</language>
+
+
+			<language tag="th-TH">th-TH/th-TH.com_miniorange_scim.ini</language>
+			<language tag="th-TH">th-TH/th-TH.com_miniorange_scim.sys.ini</language>
+			<language tag="sr-RS">sr-RS/sr-RS.com_miniorange_scim.ini</language>
+			<language tag="sr-RS">sr-RS/sr-RS.com_miniorange_scim.sys.ini</language>
+
+		</languages>
+	</administration>
+	
+</extension>

@@ -1,0 +1,1 @@
+ALTER TABLE `#__miniorange_scim_details` ADD COLUMN `default_roles` VARCHAR(255) NOT NULL default '[2]';

@@ -1,0 +1,1 @@
+ALTER TABLE `#__miniorange_scim_details` ALTER `moScimAttributeMap` SET DEFAULT '{"profile":{"emails[type eq \\"work\\"].value":"u_email","userName":"u_username"}}';

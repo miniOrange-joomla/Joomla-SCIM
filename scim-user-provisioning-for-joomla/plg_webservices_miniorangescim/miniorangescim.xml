@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="webservices" method="upgrade">
+	<name>PLG_WEBSERVICES_MINIORANGESCIMPLUGIN_NAME</name>
+	<author>miniOrange Security Software Pvt. Ltd.</author>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>info@xecurify.com</authorEmail>
+	<authorUrl>www.miniorange.com</authorUrl>
+	<creationDate>March 2020</creationDate>
+	<copyright>Copyright 2015 miniOrange. All Rights Reserved.</copyright>
+	<license>http://miniorange.com/usecases/miniOrange_User_Agreement.pdf</license>
+	<version>4.0</version>
+	<description>PLG_WEBSERVICES_MINIORANGESCIM_XML_DESCRIPTION</description>
+	<scriptfile>myscript.php</scriptfile>
+	<files>
+		<file>index.html</file>
+		<filename plugin="miniorangescim">miniorangescim.php</filename>		
+		<folder>language</folder>
+	</files>
+	<languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_webservices_miniorangescim.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_webservices_miniorangescim.sys.ini</language>
+    </languages>
+</extension>

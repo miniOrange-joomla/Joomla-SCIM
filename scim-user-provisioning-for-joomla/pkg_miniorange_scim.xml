@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="package" method="upgrade">
+	<name>Package - miniOrange Scim</name>
+	<packagename>miniorange_scim</packagename>
+	<license>GNU/GPLv3</license>
+	<version>4.0</version>
+	<author>miniOrange Security Software Pvt. Ltd.</author>
+	<authorEmail>info@xecurify.com</authorEmail>
+	<creationDate>March 2020</creationDate>
+	<description>miniOrange SCIM Installed Successfully!</description>
+	<files>
+		<file type="component" id="miniorange_scim">com_miniorange_scim.zip</file>
+		<file type="library" id="miniorangescimplugin">lib_miniorangescimplugin.zip</file>
+		<file type="plugin" id="miniorangescim" group="webservices">plg_webservices_miniorangescim.zip</file>
+		<file type="plugin" id="miniorangescim" group="system">plg_system_miniorangescim.zip</file>
+	</files>
+	<scriptfile>pkg_script.php</scriptfile>
+	<updateservers>
+		<server type="extension" priority="1" name="Scim">https://prod-marketing-site.s3.amazonaws.com/plugins/joomla/joomla_scim_update.xml</server>
+	</updateservers>
+</extension>
