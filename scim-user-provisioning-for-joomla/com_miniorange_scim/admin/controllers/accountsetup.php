@@ -58,6 +58,7 @@ class Miniorange_scimControllerAccountsetup extends FormController
         $post = Factory::getApplication()->input->post->getArray();
         $this->emptyPostCheck($post,'account');
         $accountPage = 'index.php?option=com_miniorange_scim&view=accountsetup&tab-panel=plugin_overview';
+        
 
         if (isset($post['query_phone']) && $post['query_phone'] != NULL) {
             $pgone_num_validate = preg_match("/^\+?[0-9]+$/", $post['query_phone']);
@@ -77,8 +78,34 @@ class Miniorange_scimControllerAccountsetup extends FormController
             $query = $post['mo_scim_textfield'];
             $email = $post['query_email'];
             $phone = $post['query_phone'];
+            $country_code = isset($post['country_code']) ? $post['country_code'] : '';
+            $client_timezone = isset($post['client_timezone']) ? $post['client_timezone'] : '';
+            $client_timezone_offset = isset($post['client_timezone_offset']) ? $post['client_timezone_offset'] : '';
+
+            // Phone: prefix with selected dial code if user entered local number
+            $dial = preg_replace('/\D+/', '', (string) $country_code);
+            $phone_raw = trim((string) $phone);
+            if (!empty($dial) && $phone_raw !== '' && strpos($phone_raw, '+') !== 0) {
+                $local = preg_replace('/\D+/', '', $phone_raw);
+                $phone = '+' . $dial . ($local !== '' ? (' ' . $local) : '');
+            } elseif (!empty($dial) && $phone_raw === '') {
+                $phone = '+' . $dial;
+            }
+
+            // Timezone (priority: browser tz -> Joomla user tz -> global config offset)
+            $user = Factory::getUser();
+            $config = Factory::getConfig();
+            $tzName = trim((string) $client_timezone);
+            if ($tzName === '') {
+                $tzName = (string) $user->getParam('timezone');
+            }
+            if (trim((string) $tzName) === '') {
+                $tzName = (string) $config->get('offset');
+            }
+            $timezone = MoSCIMUtility::format_timezone_with_utc_offset($tzName, $client_timezone_offset);
+
             $contact_us = new MoScimCustomer();
-            $submited = json_decode($contact_us->submit_contact_us($email, $phone, $query), true);
+            $submited = json_decode($contact_us->submit_contact_us($email, $phone, $query, $timezone), true);
             if (json_last_error() == JSON_ERROR_NONE) {
                 if (is_array($submited) && array_key_exists('status', $submited) && $submited['status'] == 'ERROR') {
                     $this->setRedirect($accountPage, $submited['message'], 'error');
@@ -109,14 +136,31 @@ class Miniorange_scimControllerAccountsetup extends FormController
         $description = trim($post['description']);
         $demo = 'Trial';
         
-        // Handle phone number data
+        // Handle phone number data (country_code is dial digits without '+')
         $phone = isset($post['query_phone']) ? $post['query_phone'] : '';
         $country_code = isset($post['country_code']) ? $post['country_code'] : '';
-        
-        // Combine country code and phone number if both are provided
-        if (!empty($country_code) && !empty($phone)) {
-            $phone = $country_code . ' ' . $phone;
+        $dial = preg_replace('/\D+/', '', (string) $country_code);
+        $phone_raw = trim((string) $phone);
+        if (!empty($dial) && $phone_raw !== '' && strpos($phone_raw, '+') !== 0) {
+            $local = preg_replace('/\D+/', '', $phone_raw);
+            $phone = '+' . $dial . ($local !== '' ? (' ' . $local) : '');
+        } elseif (!empty($dial) && $phone_raw === '') {
+            $phone = '+' . $dial;
         }
+
+        // Timezone for trial request
+        $client_timezone = isset($post['client_timezone']) ? $post['client_timezone'] : '';
+        $client_timezone_offset = isset($post['client_timezone_offset']) ? $post['client_timezone_offset'] : '';
+        $user = Factory::getUser();
+        $config = Factory::getConfig();
+        $tzName = trim((string) $client_timezone);
+        if ($tzName === '') {
+            $tzName = (string) $user->getParam('timezone');
+        }
+        if (trim((string) $tzName) === '') {
+            $tzName = (string) $config->get('offset');
+        }
+        $timezone = MoSCIMUtility::format_timezone_with_utc_offset($tzName, $client_timezone_offset);
         
         if ( empty($email) ||empty($plan) || empty($description)) {
             $this->setRedirect('index.php?option=com_miniorange_scim&view=accountsetup&tab-panel=trial_request', Text::_('COM_MINIORANGE_SCIM_MSG_A'), 'error');
@@ -124,7 +168,7 @@ class Miniorange_scimControllerAccountsetup extends FormController
         }
 
         $customer = new MoScimCustomer();
-        $response = json_decode($customer->request_for_trial($email, $plan, $demo, $description, $phone));
+        $response = json_decode($customer->request_for_trial($email, $plan, $demo, $description, $phone, $timezone));
 
         if ($response->status != 'ERROR')
         {

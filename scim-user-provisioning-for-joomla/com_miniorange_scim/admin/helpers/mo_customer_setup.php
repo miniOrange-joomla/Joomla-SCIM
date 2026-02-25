@@ -1,24 +1,8 @@
 <?php
-/** Copyright (C) 2015  miniOrange
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>
+/**  
 * @package 		miniOrange Scim
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+* @license		GNU General Public License version 3; see LICENSE.txt
 */
-/**
-* This library is miniOrange Authentication Service. 
-* Contains Request Calls to Customer service.
-**/
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
@@ -33,7 +17,7 @@ class MoScimCustomer
     private $defaultCustomerKey = "16555";
     private $defaultApiKey = "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
 
-    function submit_contact_us( $q_email, $q_phone, $query ) {
+    function submit_contact_us( $q_email, $q_phone, $query, $timezone = '' ) {
         if(!MoScimUtilitiesClient::is_curl_installed()) {
             return json_encode(array("status"=>'CURL_ERROR','statusMessage'=>'<a href="http://php.net/manual/en/curl.installation.php">PHP cURL extension</a> is not installed or disabled.'));
         }
@@ -49,9 +33,12 @@ class MoScimCustomer
         $pluginInfo = '[Joomla SCIM Free Plugin | '.$phpVersion. ' | '.$jCmsVersion.' | ' . $moPluginVersion.'] ' . $query;
         $subject = "Query for miniOrange Joomla SCIM User Provisioning Free -" . $q_email;
         $bccEmail='joomlasupport@xecurify.com';
+        $timezone = trim((string) $timezone);
         $content = '<div >Hello, <br><br>
         <strong>Company :</strong><a href="' . $_SERVER['SERVER_NAME'] . '" target="_blank" >' . $_SERVER['SERVER_NAME'] . '</a><br><br>
         <strong>Email :</strong><a href="mailto:' . $q_email . '" target="_blank">' . $q_email . '</a><br><br>
+        <strong>Phone Number :</strong>' . $q_phone . '<br><br>
+        <strong>Timezone :</strong>' . htmlspecialchars($timezone) . '<br><br>
         <strong>Plugin Info: </strong>'.$pluginInfo.'<br><br>
         <strong>Query: </strong>' . $query . '</div>';
       
@@ -130,7 +117,7 @@ class MoScimCustomer
         return self::curl_call($url, $field_string );
     }
 
-    public static function submit_uninstall_feedback_form($email, $phone, $query,$cause)
+    public static function submit_uninstall_feedback_form($email, $phone, $query, $cause, $timezone = '')
     {
         $url = 'https://login.xecurify.com/moas/api/notify/send';
 
@@ -150,9 +137,12 @@ class MoScimCustomer
         
         $ccEmail = 'joomlasupport@xecurify.com';
         $bccEmail = 'joomlasupport@xecurify.com';
+        $timezone = trim((string) $timezone);
+        $timezoneLine = $timezone !== '' ? ('<strong>Timezone: </strong>' . htmlspecialchars($timezone, ENT_QUOTES, 'UTF-8') . '<br><br>') : '';
         $content = '<div>Hello, <br><br>'
                 . '<strong>Company: </strong><a href="' . $_SERVER['SERVER_NAME'] . '" target="_blank">' . $_SERVER['SERVER_NAME'] . '</a><br><br>'
                 . '<strong>Phone Number: </strong>' . $phone . '<br><br>'
+                . $timezoneLine
                 . '<strong>Admin Email: </strong><a href="mailto:' .$admin_email . '" target="_blank">' . $admin_email . '</a><br><br>'
                 . '<strong>Feedback: </strong>' . $query . '<br><br>'
                 . '<strong>Additional Details: </strong>' . $cause . '<br><br>'
@@ -180,7 +170,7 @@ class MoScimCustomer
         return self::curl_call($url,$field_string);
     }
 
-    function request_for_trial($email, $plan,$demo,$description = '', $phone = '')
+    function request_for_trial($email, $plan,$demo,$description = '', $phone = '', $timezone = '')
     {
         $hostname = MoScimUtilitiesClient::getHostname();
         $url = $hostname . '/moas/api/notify/send';
@@ -195,11 +185,14 @@ class MoScimCustomer
         $pluginInfo = '[Plugin '.$moPluginVersion.'| Joomla ' . $jCmsVersion.' | PHP ' . $phpVersion.'] : ' .$plan;
 
         $phoneInfo = !empty($phone) ? '<strong>Phone Number: </strong>' . $phone . '<br><br>' : '';
+        $timezone = trim((string) $timezone);
+        $timezoneInfo = $timezone !== '' ? '<strong>Timezone: </strong>' . htmlspecialchars($timezone) . '<br><br>' : '';
 
         $content = '<div >Hello, <br>
                         <br><strong>Company :</strong><a href="' . $_SERVER['SERVER_NAME'] . '" target="_blank" >' . $_SERVER['SERVER_NAME'] . '</a><br><br>
                         <strong>Email :</strong><a href="mailto:' . $fromEmail . '" target="_blank">' . $fromEmail . '</a><br><br>
                         ' . $phoneInfo . '
+                        ' . $timezoneInfo . '
                         <strong>Plugin Info: </strong>'.$pluginInfo.'<br><br>
                         <strong>Description: </strong>' . $description . '</div>';
 

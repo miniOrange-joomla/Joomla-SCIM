@@ -1,1 +1,1 @@
-ALTER TABLE `#__miniorange_scim_details` ADD COLUMN `uninstall_feedback` int(2)  NOT NULL;
+ALTER TABLE `#__miniorange_scim_details` ADD COLUMN `uninstall_feedback` ENUM('0','1','2') NOT NULL DEFAULT '0';

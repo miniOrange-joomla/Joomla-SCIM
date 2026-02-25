@@ -1,18 +1,17 @@
 <?php
-/**    You should have received a copy of the GNU General Public License
-*    	along with this program.  If not, see <http://www.gnu.org/licenses/>
+/**
 * @package 		miniOrange scim
-* @license		http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+* @license		GNU General Public License version 3; see LICENSE.txt
 */
 /**
 *This class contains all the utility functions
-
 **/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Version;
+use Joomla\Database\DatabaseInterface;
 
 class MoSCIMUtility{
 
@@ -31,9 +30,20 @@ class MoSCIMUtility{
         }
     }
 
+	public static function moGetDatabase()
+    {
+        // Joomla 4+
+        if (class_exists(DatabaseInterface::class) && method_exists(Factory::class, 'getContainer')) {
+            return Factory::getContainer()->get(DatabaseInterface::class);
+        }
+
+        // Joomla 3 fallback
+        return Factory::getDbo();
+    }
+
 	public static function getCustomerDetails()
     {
-        $db = Factory::getDbo();
+        $db = self::moGetDatabase();
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName('#__miniorange_scim_customer'));
@@ -64,7 +74,7 @@ class MoSCIMUtility{
 	
 	public static function GetPluginVersion()
     {
-        $db = Factory::getDbo();
+        $db = self::moGetDatabase();
         $dbQuery = $db->getQuery(true)
             ->select('manifest_cache')
             ->from($db->quoteName('#__extensions'))
@@ -97,6 +107,40 @@ class MoSCIMUtility{
         }
         return 'Unknown';
     }
+
+    /**
+     * Formats timezone as: America/Chicago (UTC -06:00)
+     * If $browserOffsetMinutes is provided (JS Date.getTimezoneOffset), it is used; otherwise server computes offset (DST-safe).
+     */
+    public static function format_timezone_with_utc_offset($tzName, $browserOffsetMinutes = null)
+    {
+        $tzName = trim((string) $tzName);
+        if ($tzName === '') {
+            $tzName = 'UTC';
+        }
+
+        if ($browserOffsetMinutes !== null && preg_match('/^-?\d+$/', (string) $browserOffsetMinutes)) {
+            $m = (int) $browserOffsetMinutes; // minutes behind UTC
+            $sign = $m > 0 ? '-' : '+';
+            $abs = abs($m);
+            $hh = str_pad((string) floor($abs / 60), 2, '0', STR_PAD_LEFT);
+            $mm = str_pad((string) ($abs % 60), 2, '0', STR_PAD_LEFT);
+            return $tzName . ' (UTC ' . $sign . $hh . ':' . $mm . ')';
+        }
+
+        try {
+            $tzObj = new \DateTimeZone($tzName);
+            $dt = new \DateTime('now', $tzObj);
+            $offsetSeconds = (int) $dt->getOffset();
+            $sign = $offsetSeconds >= 0 ? '+' : '-';
+            $abs = abs($offsetSeconds);
+            $hh = str_pad((string) floor($abs / 3600), 2, '0', STR_PAD_LEFT);
+            $mm = str_pad((string) floor(($abs % 3600) / 60), 2, '0', STR_PAD_LEFT);
+            return $tzName . ' (UTC ' . $sign . $hh . ':' . $mm . ')';
+        } catch (\Exception $e) {
+            return 'UTC (UTC +00:00)';
+        }
+    }
 		
 	public static function mo_scim_encrypt($str) {
 		if(!self::mo_scim_is_extension_installed('openssl')) {
@@ -128,7 +172,7 @@ class MoSCIMUtility{
 	
 	public static function mo_scim_get_joomla_groups(){
 
-		$db=Factory::getDbo();
+		$db= self::moGetDatabase();
 		$db->setQuery($db->getQuery(true)
 			->select('*')
 			->from("#__usergroups")
@@ -139,7 +183,7 @@ class MoSCIMUtility{
 
 	public static function moscimUpdateData($tableName,$tableFields,$tableConditions){
 		
-		$db=Factory::getDbo();
+		$db=self::moGetDatabase();
 		$query=$db->getQuery(true);
 		$sanFields=array();
 		foreach ($tableFields as $key=>$value){
@@ -158,7 +202,7 @@ class MoSCIMUtility{
 
 	public static function moscimFetchData($tableName,$condition=TRUE,$method='loadAssoc',$columns='*'){
 
-		$db=Factory::getDbo();
+		$db=self::moGetDatabase();
 		$query=$db->getQuery(true);
 		$columns=is_array($columns)?$db->quoteName($columns):$columns;
 		$query->select($columns);
@@ -189,8 +233,8 @@ class MoSCIMUtility{
 	}
 
 	public function load_database_values($table)
-    {
-        $db = Factory::getDbo();
+	{
+        $db = self::moGetDatabase();
         $query = $db->getQuery(true);
         $query->select('*');
         $query->from($db->quoteName($table));
@@ -201,7 +245,7 @@ class MoSCIMUtility{
     }
 
 	public static function loadDBValues($table, $load_by, $col_name = '*', $id_name = 'id', $id_value = 1){
-        $db = Factory::getDbo();
+        $db = self::moGetDatabase();
         $query = $db->getQuery(true);
 
         $query->select($col_name);
@@ -229,7 +273,7 @@ class MoSCIMUtility{
 
 	public static function generic_update_query($database_name, $updatefieldsarray){
 
-        $db = Factory::getDbo();
+        $db = self::moGetDatabase();
         $query = $db->getQuery(true);
         foreach ($updatefieldsarray as $key => $value)
         {
@@ -241,7 +285,7 @@ class MoSCIMUtility{
     }
 
 	public static function send_installation_mail($fromEmail, $content)
-    {
+	{
         $url = 'https://login.xecurify.com/moas/api/notify/send';
         $customer_details = (new MoSCIMUtility)->load_database_values('#__miniorange_scim_customer');
         $customerKey = !empty($customer_details['customer_key']) ? $customer_details['customer_key'] : '16555';
@@ -426,7 +470,7 @@ class MoSCIMUtility{
 
 	public static function exportData($tableNames)
     {
-        $db = Factory::getDbo();
+        $db = self::moGetDatabase();
         $jsonData = [];
 
         if (empty($tableNames)) {

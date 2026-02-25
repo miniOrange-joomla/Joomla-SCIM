@@ -35,7 +35,7 @@ class plgSystemMiniorangescim extends CMSPlugin
         $get = ($input && $input->get) ? $input->get->getArray() : [];
         $post = ($input && $input->post) ? $input->post->getArray() : [];
         $tab = 0;
-        $tables = Factory::getDbo()->getTableList();
+        $tables = MoSCIMUtility::moGetDatabase()->getTableList();
     
 
         foreach ($tables as $table) {
@@ -71,17 +71,36 @@ class plgSystemMiniorangescim extends CMSPlugin
                 $admin_email = !empty($admin_email)?$admin_email:self::getSuperUser();
                 $admin_phone = $customerResult['admin_phone'];
                 $data1 = $radio . ' : ' . $data . '  <br><br><strong>Email:</strong>  ' . $feedback_email;
+
+                // Timezone (browser -> user -> site)
+                $client_timezone = isset($post['client_timezone']) ? (string) $post['client_timezone'] : '';
+                $client_timezone_offset = null;
+                if (isset($post['client_timezone_offset']) && preg_match('/^-?\d+$/', (string) $post['client_timezone_offset'])) {
+                    $client_timezone_offset = (int) $post['client_timezone_offset'];
+                }
+                $user = Factory::getUser();
+                $config = Factory::getConfig();
+                $tzName = trim((string) $client_timezone);
+                if ($tzName === '') {
+                    $tzName = (string) $user->getParam('timezone');
+                }
+                if (trim((string) $tzName) === '') {
+                    $tzName = (string) $config->get('offset');
+                }
+                $timezone = trim((string) MoSCIMUtility::format_timezone_with_utc_offset($tzName, $client_timezone_offset));
     
                 if(isset($post['mojspfree_skip_feedback']))
                 {
                     $data1='Skipped the feedback';
                 }
     
-                if(file_exists(JPATH_BASE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_miniorange_scim' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'mo_customer_setup.php'))
+                $helperPath = JPATH_BASE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_miniorange_scim' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'mo_customer_setup.php';
+
+                if (file_exists($helperPath))
                 {
-                    require_once JPATH_BASE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_miniorange_scim' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'mo_customer_setup.php';
-    
-                    MoScimCustomer::submit_uninstall_feedback_form($admin_email, $admin_phone, $data1,'');
+                    require_once $helperPath;
+
+                    MoScimCustomer::submit_uninstall_feedback_form($admin_email,$admin_phone,$data1,'', $timezone);
                 }
               
                 require_once JPATH_SITE . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Installer' . DIRECTORY_SEPARATOR . 'Installer.php';
@@ -115,7 +134,7 @@ class plgSystemMiniorangescim extends CMSPlugin
                             if (!$installer) {
                                 $installer = new Installer();
                                 if (method_exists($installer, 'setDatabase')) {
-                                    $installer->setDatabase(Factory::getDbo());
+                                    $installer->setDatabase(MoSCIMUtility::moGetDatabase());
                                 }
                             }
                             
@@ -188,7 +207,7 @@ class plgSystemMiniorangescim extends CMSPlugin
 
     public static function getSuperUser()
     {
-        $db = Factory::getDBO();
+        $db = MoSCIMUtility::moGetDatabase();
         $query = $db->getQuery(true)->select('user_id')->from('#__user_usergroup_map')->where('group_id=' . $db->quote(8));
         $db->setQuery($query);
         $results = $db->loadColumn();
@@ -461,11 +480,11 @@ class plgSystemMiniorangescim extends CMSPlugin
         $app = Factory::getApplication();
         $input = method_exists($app, 'getInput') ? $app->getInput() : $app->input;
         $post = ($input && $input->post) ? $input->post->getArray() : [];
-        $tables = Factory::getDbo()->getTableList();
+        $tables = MoSCIMUtility::moGetDatabase()->getTableList();
         $result = MoSCIMUtility::loadDBValues('#__extensions', 'loadColumn', 'extension_id', 'element', 'com_miniorange_scim');
-        $tables = Factory::getDbo()->getTableList();
+        $tables = MoSCIMUtility::moGetDatabase()->getTableList();
         $tab = 0;
-        $tables = Factory::getDbo()->getTableList();
+        $tables = MoSCIMUtility::moGetDatabase()->getTableList();
         foreach ($tables as $table) {
             if (strpos($table, "miniorange_scim_details") !== FALSE)
                 $tab = $table;
@@ -483,17 +502,33 @@ class plgSystemMiniorangescim extends CMSPlugin
             $check_email = $dVar->mailfrom;
             $feedback_email = !empty($customerResult ['admin_email']) ? $customerResult ['admin_email'] :$check_email;
 
-            if (1) {
                 if ($fid == 0) {
                     foreach ($result as $results) {
                         if ($results == $id) {?>
                           <link rel="stylesheet" type="text/css" href="<?php echo Uri::base();?>/components/com_miniorange_scim/assets/css/miniorange_scim.css" />
                           <link rel="stylesheet" type="text/css" href="<?php echo Uri::base();?>/components/com_miniorange_scim/assets/css/miniorange_boot.css" />
                             <div class="form-style-6 mo_boot_mt-2 mo_boot_offset-4 mo_boot_col-4 ">
-                                <h1>Feedback form for SCIM User Provisioning Free Plugin</h1>
+                                <form name="f" method="post" action="" id="mojspfree_feedback_form_close" class="mo_boot_mt-3">
+                                    <h1 class="mo_feedback_heading">
+                                        Feedback form for SCIM User Provisioning Free Plugin
+
+                                        <span class="mo_close_icon" onclick="skipSCIMForm()" aria-label="Close">
+                                            &times;
+                                        </span>
+
+                                        <input type="hidden" name="mojspfree_skip_feedback" value="mojspfree_skip_feedback"/>
+                                    </h1>
+                                    <?php
+                                        foreach ($tpostData['cid'] as $key) { ?>
+                                            <input type="hidden" name="result[]" value=<?php echo $key ?>>
+                                        <?php }
+                                    ?>
+                                </form>
                                 <form name="f" method="post" action="" id="mojsp_feedback" classs="mo_boot_p-5">
                                     <h3>What Happened? </h3>
                                     <input type="hidden" name="mojsp_feedback" value="mojsp_feedback"/>
+                                    <input type="hidden" name="client_timezone" id="mo_client_timezone" value="" />
+                                    <input type="hidden" name="client_timezone_offset" id="mo_client_timezone_offset" value="" />
                                     <div>
                                         <p class="mo_boot_ml-2">
                                             <?php
@@ -533,20 +568,19 @@ class plgSystemMiniorangescim extends CMSPlugin
                                             </div>
                                     </div>
                                 </form>
-                                <form name="f" method="post" action="" id="mojspfree_feedback_form_close" class="mo_boot_mt-3">
-                                    <input type="hidden" name="mojspfree_skip_feedback" value="mojspfree_skip_feedback"/>
-                                    <div class="mo_boot_text-center">
-                                        <button class="mo_boot_btn mo_heading_export_btn mo_boot_col-12 mo_boot_p-2" onClick="skipSCIMForm()">Skip Feedback</button>
-                                    </div>
-                                    <?php
-                                        foreach ($tpostData['cid'] as $key) { ?>
-                                            <input type="hidden" name="result[]" value=<?php echo $key ?>>
-                                        <?php }
-                                    ?>
-                                </form>
                             </div>
                             <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
                             <script>
+                                (function(){
+                                    try {
+                                        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+                                        var off = (new Date()).getTimezoneOffset();
+                                        var tzEl = document.getElementById('mo_client_timezone');
+                                        var offEl = document.getElementById('mo_client_timezone_offset');
+                                        if (tzEl) tzEl.value = tz;
+                                        if (offEl) offEl.value = String(off);
+                                    } catch (e) {}
+                                })();
                                 jQuery('input:radio[name="deactivate_plugin"]').click(function () {
                                     var reason = jQuery(this).val();
                                     jQuery('#query_feedback').removeAttr('required')
@@ -575,7 +609,6 @@ class plgSystemMiniorangescim extends CMSPlugin
                         }
                     }
                 }
-            }
         }
     }
 }

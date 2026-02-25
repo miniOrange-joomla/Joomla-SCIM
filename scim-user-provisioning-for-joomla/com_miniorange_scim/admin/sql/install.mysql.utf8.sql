@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `#__miniorange_scim_details` (
 `scim_configuration` TEXT  NOT NULL ,
 `user_creation` TEXT  NOT NULL ,
 `users` int(11) UNSIGNED DEFAULT 0,
-`uninstall_feedback` int(2),
+`uninstall_feedback` ENUM('0','1','2') NOT NULL DEFAULT '0',
 PRIMARY KEY (`id`)
 ) DEFAULT COLLATE=utf8_general_ci;
 

@@ -2,13 +2,12 @@
 <extension version="3.0" type="plugin" group="webservices" method="upgrade">
 	<name>PLG_WEBSERVICES_MINIORANGESCIMPLUGIN_NAME</name>
 	<author>miniOrange Security Software Pvt. Ltd.</author>
-	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<license>GNU General Public License version 3; see LICENSE.txt</license>
 	<authorEmail>info@xecurify.com</authorEmail>
 	<authorUrl>www.miniorange.com</authorUrl>
 	<creationDate>March 2020</creationDate>
 	<copyright>Copyright 2015 miniOrange. All Rights Reserved.</copyright>
-	<license>http://miniorange.com/usecases/miniOrange_User_Agreement.pdf</license>
-	<version>4.0</version>
+	<version>4.0.1</version>
 	<description>PLG_WEBSERVICES_MINIORANGESCIM_XML_DESCRIPTION</description>
 	<scriptfile>myscript.php</scriptfile>
 	<files>

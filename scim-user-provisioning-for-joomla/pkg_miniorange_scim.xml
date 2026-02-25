@@ -2,8 +2,8 @@
 <extension version="3.0" type="package" method="upgrade">
 	<name>Package - miniOrange Scim</name>
 	<packagename>miniorange_scim</packagename>
-	<license>GNU/GPLv3</license>
-	<version>4.0</version>
+	<license>GNU General Public License version 3; see LICENSE.txt</license>
+	<version>4.0.1</version>
 	<author>miniOrange Security Software Pvt. Ltd.</author>
 	<authorEmail>info@xecurify.com</authorEmail>
 	<creationDate>March 2020</creationDate>

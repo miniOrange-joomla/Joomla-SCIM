@@ -26,6 +26,7 @@ $document = Factory::getDocument();
 $document->addStyleSheet(Uri::base() . 'components/com_miniorange_scim/assets/css/miniorange_boot.css');
 $document->addStyleSheet(Uri::base() . 'components/com_miniorange_scim/assets/css/miniorange_scim.css');
 $document->addScript(Uri::base() . 'components/com_miniorange_scim/assets/js/moScimMapping.js');
+$document->addScript(Uri::base() . 'components/com_miniorange_scim/assets/js/countries.js');
 $document->addScript(Uri::base() . 'components/com_miniorange_scim/assets/js/utility.js');
 $document->addScript(Uri::base() . 'components/com_miniorange_scim/assets/js/bootstrap.js');
 $document->addStyleSheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
@@ -708,7 +709,25 @@ function mo_scim_support(){
                     <input type="email" class="mo-form-control mo_scim_textfield" name="query_email" value="" placeholder="<?php echo Text::_('COM_MINIORANGE_SCIM_SUPPORT_MAIL');?>" required />
                 </div>
                 <div class="mo_boot_col-sm-12 mo_boot_pt-3">
-                    <input type="text" class="mo-form-control mo_scim_textfield" name="query_phone" value="" placeholder="<?php echo Text::_('COM_MINIORANGE_SCIM_SUPPORT_PHONE');?>"/>
+                    <div class="mo_boot_row mo-phone-inline-row" data-mo-phone-dropdown>
+                        <div class="mo_boot_col-4">
+                            <div class="mo-phone-card">
+                                <div class="mo-country-select">
+                                    <span class="flag" aria-hidden="true"></span>
+                                    <span class="dial-code">+91</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <ul class="mo-country-list"></ul>
+
+                                <input type="hidden" name="country_code" class="mo-country-code" value="91">
+                                <input type="hidden" name="client_timezone" class="mo-client-timezone" value="">
+                                <input type="hidden" name="client_timezone_offset" class="mo-client-timezone-offset" value="">
+                            </div>
+                        </div>
+                        <div class="mo_boot_col-8">
+                            <input type="tel" class="mo-form-control mo_scim_textfield" name="query_phone" value="" placeholder="<?php echo Text::_('COM_MINIORANGE_SCIM_SUPPORT_PHONE');?>"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="mo_boot_col-sm-12 mo_boot_pt-3">
                     <textarea class="mo-form-control-textarea mo_scim_textfield" name="mo_scim_textfield" cols="52" rows="4" placeholder="<?php echo Text::_('COM_MINIORANGE_SCIM_SUPPORT_QUERY');?>" required></textarea>
@@ -746,29 +765,24 @@ function trial_request()
 
                             <div class="mo_boot_mb-3">
                                 <h4 class="mo_boot_mb-1"><?php echo Text::_('COM_MINIORANGE_SCIM_PHONE_NUMBER');?>:</h4>
-                                <div class="mo_boot_d-flex">
-                                    <select class="mo-form-control-select mo-form-control mo_boot_me-2" name="country_code" style="flex: 0 0 120px;">
-                                        <?php
-                                        // Load country codes from JSON file
-                                        $country_codes_json_path = Uri::base() . 'components/com_miniorange_scim/assets/json/country_codes.json';
-                                        $country_codes_json = @file_get_contents($country_codes_json_path);
-                                        
-                                        if ($country_codes_json === false) {
-                                            // Fallback to default codes if JSON file is not found
-                                            $country_codes = array('+1', '+44', '+91');
-                                        } else {
-                                            $country_codes = json_decode($country_codes_json, true);
-                                            if ($country_codes === null) {
-                                                $country_codes = array('+1', '+44', '+91');
-                                            }
-                                        }
-                                        
-                                        foreach ($country_codes as $code) {
-                                            echo '<option value="' . htmlspecialchars($code, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($code, ENT_QUOTES, 'UTF-8') . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                    <input type="tel" class="mo-form-control mo_boot_flex-fill" name="query_phone" placeholder="<?php echo Text::_('COM_MINIORANGE_SCIM_PHONE_PLACEHOLDER');?>">
+                                <div class="mo_boot_row mo-phone-inline-row" data-mo-phone-dropdown>
+                                    <div class="mo_boot_col-4">
+                                        <div class="mo-phone-card">
+                                            <div class="mo-country-select">
+                                                <span class="flag" aria-hidden="true"></span>
+                                                <span class="dial-code">+91</span>
+                                                <span class="arrow">▾</span>
+                                            </div>
+                                            <ul class="mo-country-list"></ul>
+
+                                            <input type="hidden" name="country_code" class="mo-country-code" value="91">
+                                            <input type="hidden" name="client_timezone" class="mo-client-timezone" value="">
+                                            <input type="hidden" name="client_timezone_offset" class="mo-client-timezone-offset" value="">
+                                        </div>
+                                    </div>
+                                    <div class="mo_boot_col-8">
+                                        <input type="tel" class="mo-form-control mo_boot_flex-fill" name="query_phone" placeholder="<?php echo Text::_('COM_MINIORANGE_SCIM_PHONE_PLACEHOLDER');?>">
+                                    </div>
                                 </div>
                             </div>
 

@@ -14,7 +14,6 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
-
 class plgSystemMiniorangescimInstallerScript
 {
     /**

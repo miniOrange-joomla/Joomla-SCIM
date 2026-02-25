@@ -7,7 +7,7 @@
     <authorUrl>https://www.miniorange.com/</authorUrl>
     <copyright>Copyright (C) 2015 miniOrange. All rights reserved.</copyright>
     <license>GNU General Public License version 3; see LICENSE.txt</license>  
-	<version>4.0</version>
+	<version>4.0.1</version>
 	<description>PLG_SYSTEM_MINIORANGESCIM_XML_DESCRIPTION</description>
 	<scriptfile>myscript.php</scriptfile>
 	<files>

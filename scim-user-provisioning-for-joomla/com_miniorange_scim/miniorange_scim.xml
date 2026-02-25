@@ -6,8 +6,8 @@
 	<authorEmail>info@xecurify.com</authorEmail>
 	<authorUrl>http://miniorange.com</authorUrl>
 	<copyright>Copyright Info</copyright>
-	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
-	<version>4.0</version>
+	<license>GNU General Public License version 3; see LICENSE.txt</license>
+	<version>4.0.1</version>
 	<description>This provides SCIM protocol.</description>
  
 	<install> <!-- Runs on install -->

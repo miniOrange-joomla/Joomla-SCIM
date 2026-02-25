@@ -11,6 +11,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Version;
 
 include_once JPATH_SITE . DIRECTORY_SEPARATOR . 'administrator' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_miniorange_scim' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'mo_customer_setup.php';
+include_once JPATH_SITE . DIRECTORY_SEPARATOR . 'administrator' . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_miniorange_scim' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'mo_scim_utility.php';
 class MoScimUtilitiesClient
 {
     static function mo_log($log_msg)
@@ -46,7 +47,7 @@ class MoScimUtilitiesClient
 
 
     public static function insert_token_into_table($bearer_token){
-        $db = Factory::getDbo();
+        $db = MoSCIMUtility::moGetDatabase();
         $query = $db->getQuery(true);
 
         // Fields to update.
@@ -183,7 +184,7 @@ class MoScimUtilitiesClient
 
     static function miniScimFetchDb($tableName, $condition = TRUE, $method = 'loadAssoc', $columns = '*')
     {
-        $db = Factory::getDbo();
+        $db = MoSCIMUtility::moGetDatabase();
         $query = $db->getQuery(true);
         $columns = is_array($columns) ? $db->quoteName($columns) : $columns;
         $query->select($columns);
@@ -212,7 +213,7 @@ class MoScimUtilitiesClient
                 $fields['block'] = 1 - $fields['block'];
         }
 
-        $db = Factory::getDbo();
+        $db = MoSCIMUtility::moGetDatabase();
         $query = $db->getQuery(true);
         // Fields to update.
         $sanFields = array();
@@ -357,7 +358,7 @@ class MoScimUtilitiesClient
     public static function updateDBValues($database_name, $updatefieldsarray)
     {
 
-        $db = Factory::getDbo();
+        $db = MoSCIMUtility::moGetDatabase();
 
         $query = $db->getQuery(true);
         foreach ($updatefieldsarray as $key => $value) {
