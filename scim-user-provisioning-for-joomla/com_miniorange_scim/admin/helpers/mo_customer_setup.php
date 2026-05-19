@@ -31,7 +31,7 @@ class MoScimCustomer
         $customerKey =  $this->defaultCustomerKey;
 
         $pluginInfo = '[Joomla SCIM Free Plugin | '.$phpVersion. ' | '.$jCmsVersion.' | ' . $moPluginVersion.'] ' . $query;
-        $subject = "Query for miniOrange Joomla SCIM User Provisioning Free -" . $q_email;
+        $subject = "Query for Joomla SCIM Free -" . $q_email;
         $bccEmail='joomlasupport@xecurify.com';
         $timezone = trim((string) $timezone);
         $content = '<div >Hello, <br><br>
@@ -149,7 +149,7 @@ class MoScimCustomer
                 . '<strong>System Information: </strong>' . $query1 
                 . '</div>';
         
-        $subject = "Feedback for miniOrange Joomla SCIM User Provisioning Free Plugin";
+        $subject = "Joomla SCIM Free Feedback";
 
         $fields = array(
             'customerKey' => $customerKey,
@@ -176,8 +176,7 @@ class MoScimCustomer
         $url = $hostname . '/moas/api/notify/send';
         $customerKey = "16555";
         $apiKey = "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
-        $fromEmail = $email;
-        $subject = 'miniOrange Joomla SCIM User Provisioning request for trial';
+        $subject = 'Joomla SCIM Request for Trial -' .$email;
         $phpVersion = phpversion();
         $jCmsVersion = MoScimUtilitiesClient::getJoomlaCmsVersion();
         $moPluginVersion =  MoScimUtilitiesClient::GetPluginVersion();
@@ -190,7 +189,7 @@ class MoScimCustomer
 
         $content = '<div >Hello, <br>
                         <br><strong>Company :</strong><a href="' . $_SERVER['SERVER_NAME'] . '" target="_blank" >' . $_SERVER['SERVER_NAME'] . '</a><br><br>
-                        <strong>Email :</strong><a href="mailto:' . $fromEmail . '" target="_blank">' . $fromEmail . '</a><br><br>
+                        <strong>Email :</strong><a href="mailto:' . $email . '" target="_blank">' . $email . '</a><br><br>
                         ' . $phoneInfo . '
                         ' . $timezoneInfo . '
                         <strong>Plugin Info: </strong>'.$pluginInfo.'<br><br>
@@ -201,7 +200,7 @@ class MoScimCustomer
             'sendEmail' => true,
             'email' => array(
                 'customerKey' =>$this->defaultCustomerKey,
-                'fromEmail' => $fromEmail,
+                'fromEmail' => $email,
                 'fromName' => 'miniOrange',
                 'toEmail' => 'joomlasupport@xecurify.com',
                 'toName' => 'joomlasupport@xecurify.com',

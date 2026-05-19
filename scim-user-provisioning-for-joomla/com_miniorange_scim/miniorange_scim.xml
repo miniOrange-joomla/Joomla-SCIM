@@ -7,7 +7,7 @@
 	<authorUrl>http://miniorange.com</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>GNU General Public License version 3; see LICENSE.txt</license>
-	<version>4.0.1</version>
+	<version>4.0.4</version>
 	<description>This provides SCIM protocol.</description>
  
 	<install> <!-- Runs on install -->
