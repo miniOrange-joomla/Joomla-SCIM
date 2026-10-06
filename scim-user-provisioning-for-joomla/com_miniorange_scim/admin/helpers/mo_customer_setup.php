@@ -123,7 +123,6 @@ class MoScimCustomer
 
         $customerKey = "16555";
         $apiKey = "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
-        $fromEmail = $email;
         $phpVersion = phpversion();
         $dVar=new JConfig();
         $check_email = $dVar->mailfrom;
@@ -131,8 +130,9 @@ class MoScimCustomer
         $moPluginVersion =  MoScimUtilitiesClient::GetPluginVersion();
         $os_version    = MoSCIMUtility::mo_scim_get_operating_system();
         $pluginName    = 'SCIM User Provisioning Free Plugin';
-        $admin_email   = !empty($email)?$email:$check_email;
-        
+        $feedbackEmail = !empty($email) ? $email : $check_email;
+        $fromEmail     = $feedbackEmail;
+
         $query1 = '['.$pluginName.' | Plugin '.$moPluginVersion.' | PHP ' . $phpVersion.' | Joomla ' . $jCmsVersion.' | OS ' . $os_version.'] ';
         
         $ccEmail = 'joomlasupport@xecurify.com';
@@ -141,11 +141,9 @@ class MoScimCustomer
         $timezoneLine = $timezone !== '' ? ('<strong>Timezone: </strong>' . htmlspecialchars($timezone, ENT_QUOTES, 'UTF-8') . '<br><br>') : '';
         $content = '<div>Hello, <br><br>'
                 . '<strong>Company: </strong><a href="' . $_SERVER['SERVER_NAME'] . '" target="_blank">' . $_SERVER['SERVER_NAME'] . '</a><br><br>'
-                . '<strong>Phone Number: </strong>' . $phone . '<br><br>'
                 . $timezoneLine
-                . '<strong>Admin Email: </strong><a href="mailto:' .$admin_email . '" target="_blank">' . $admin_email . '</a><br><br>'
-                . '<strong>Feedback: </strong>' . $query . '<br><br>'
-                . '<strong>Additional Details: </strong>' . $cause . '<br><br>'
+                . '<strong>Email: </strong><a href="mailto:' . $feedbackEmail . '" target="_blank">' . $feedbackEmail . '</a><br><br>'
+                . '<strong>Reason: </strong>' . $query . '<br><br>'
                 . '<strong>System Information: </strong>' . $query1 
                 . '</div>';
         

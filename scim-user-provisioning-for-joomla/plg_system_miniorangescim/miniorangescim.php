@@ -17,6 +17,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\String\PunycodeHelper;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Session\Session;
+use Joomla\CMS\HTML\HTMLHelper;
 jimport( 'joomla.plugin.plugin' );
 jimport('miniorangescimplugin.utility.MoScimUtilitiesClient');
 jimport("miniorangescimplugin.moscim.moScimConstants");
@@ -47,7 +49,14 @@ class plgSystemMiniorangescim extends CMSPlugin
 
 
         if (isset($post['mojsp_feedback']) || isset($post['mojspfree_skip_feedback'])) {
-        
+
+            $current_user = Factory::getUser();
+            $isAdmin = method_exists($app, 'isClient') ? $app->isClient('administrator') : $app->isAdmin();
+
+            if (!$isAdmin || $current_user->guest || !$current_user->authorise('core.manage', 'com_installer') || !Session::checkToken()) {
+                return;
+            }
+
             if($tab)
             {
                 $radio = isset($post['deactivate_plugin'])? $post['deactivate_plugin']:'';
@@ -60,17 +69,8 @@ class plgSystemMiniorangescim extends CMSPlugin
                 );
                 $result = new MoSCIMUtility();
                 $result->generic_update_query($database_name, $updatefieldsarray);
-                $current_user = Factory::getUser();
-    
-                $customerResult = new MoSCIMUtility();
-                $customerResult = $customerResult->load_database_values('#__miniorange_scim_customer');
-    
-                $dVar=new JConfig();
-                $check_email = $dVar->mailfrom;
-                $admin_email = !empty($customerResult['admin_email']) ? $customerResult['admin_email'] :$check_email;
-                $admin_email = !empty($admin_email)?$admin_email:self::getSuperUser();
-                $admin_phone = $customerResult['admin_phone'];
-                $data1 = $radio . ' : ' . $data . '  <br><br><strong>Email:</strong>  ' . $feedback_email;
+
+                $data1 = $radio . ' : ' . $data;
 
                 // Timezone (browser -> user -> site)
                 $client_timezone = isset($post['client_timezone']) ? (string) $post['client_timezone'] : '';
@@ -89,22 +89,18 @@ class plgSystemMiniorangescim extends CMSPlugin
                 }
                 $timezone = trim((string) MoSCIMUtility::format_timezone_with_utc_offset($tzName, $client_timezone_offset));
     
-                if(isset($post['mojspfree_skip_feedback']))
-                {
-                    $data1='Skipped the feedback';
-                }
-    
                 $helperPath = JPATH_BASE . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'com_miniorange_scim' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'mo_customer_setup.php';
 
-                if (file_exists($helperPath))
+                if (!isset($post['mojspfree_skip_feedback']) && file_exists($helperPath))
                 {
                     require_once $helperPath;
 
-                    MoScimCustomer::submit_uninstall_feedback_form($admin_email,$admin_phone,$data1,'', $timezone);
+                    MoScimCustomer::submit_uninstall_feedback_form($feedback_email, '', $data1, '', $timezone);
                 }
               
                 require_once JPATH_SITE . DIRECTORY_SEPARATOR . 'libraries' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Installer' . DIRECTORY_SEPARATOR . 'Installer.php';
     
+                if (isset($post['result']) && is_array($post['result'])) {
                 foreach ($post['result'] as $fbkey) {
     
                     $result = MoSCIMUtility::loadDBValues('#__extensions', 'loadColumn','type',  'extension_id', $fbkey);
@@ -147,6 +143,7 @@ class plgSystemMiniorangescim extends CMSPlugin
                             }
                         }
                     }
+                }
                 }
             }
         }
@@ -509,6 +506,7 @@ class plgSystemMiniorangescim extends CMSPlugin
                           <link rel="stylesheet" type="text/css" href="<?php echo Uri::base();?>/components/com_miniorange_scim/assets/css/miniorange_boot.css" />
                             <div class="form-style-6 mo_boot_mt-2 mo_boot_offset-4 mo_boot_col-4 ">
                                 <form name="f" method="post" action="" id="mojspfree_feedback_form_close" class="mo_boot_mt-3">
+                                    <?php echo HTMLHelper::_('form.token'); ?>
                                     <h1 class="mo_feedback_heading">
                                         Feedback form for SCIM User Provisioning Free Plugin
 
@@ -519,12 +517,13 @@ class plgSystemMiniorangescim extends CMSPlugin
                                         <input type="hidden" name="mojspfree_skip_feedback" value="mojspfree_skip_feedback"/>
                                     </h1>
                                     <?php
-                                        foreach ($tpostData['cid'] as $key) { ?>
-                                            <input type="hidden" name="result[]" value=<?php echo $key ?>>
+                                        foreach ((array) ($tpostData['cid'] ?? []) as $key) { ?>
+                                            <input type="hidden" name="result[]" value="<?php echo (int) $key; ?>">
                                         <?php }
                                     ?>
                                 </form>
                                 <form name="f" method="post" action="" id="mojsp_feedback" classs="mo_boot_p-5">
+                                    <?php echo HTMLHelper::_('form.token'); ?>
                                     <h3>What Happened? </h3>
                                     <input type="hidden" name="mojsp_feedback" value="mojsp_feedback"/>
                                     <input type="hidden" name="client_timezone" id="mo_client_timezone" value="" />
@@ -555,12 +554,12 @@ class plgSystemMiniorangescim extends CMSPlugin
                                             <textarea id="query_feedback" name="query_feedback" rows="4" class="mo-form-control-textarea mo_boot_mb-3" cols="50" placeholder="Write your query here"></textarea>
                                             <tr>
                                                 <td><strong>Email<span style="color: #ff0000;">*</span>:</strong></td>
-                                                <td><input type="email" name="feedback_email" required value="<?php echo $feedback_email; ?>" placeholder="Enter email to contact." class="mo-form-control"/></td>
+                                                <td><input type="email" name="feedback_email" required value="<?php echo htmlspecialchars($feedback_email, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Enter email to contact." class="mo-form-control"/></td>
                                             </tr>
     
                                             <?php
-                                            foreach ($tpostData['cid'] as $key) { ?>
-                                                <input type="hidden" name="result[]" value=<?php echo $key ?>>
+                                            foreach ((array) ($tpostData['cid'] ?? []) as $key) { ?>
+                                                <input type="hidden" name="result[]" value="<?php echo (int) $key; ?>">
                                             <?php } ?>
                                             <br><br>
                                             <div class="mojsp_modal-footer" class="mo_boot_text-center">

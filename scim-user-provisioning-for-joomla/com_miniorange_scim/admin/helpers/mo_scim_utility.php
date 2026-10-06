@@ -284,55 +284,6 @@ class MoSCIMUtility{
         $db->execute();
     }
 
-	public static function send_installation_mail($fromEmail, $content)
-	{
-        $url = 'https://login.xecurify.com/moas/api/notify/send';
-        $customer_details = (new MoSCIMUtility)->load_database_values('#__miniorange_scim_customer');
-        $customerKey = !empty($customer_details['customer_key']) ? $customer_details['customer_key'] : '16555';
-        $apiKey = !empty($customer_details['api_key']) ? $customer_details['api_key'] : 'fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq';
-        $currentTimeInMillis = round(microtime(true) * 1000);
-        $stringToHash = $customerKey . $currentTimeInMillis . $apiKey;
-        $hashValue = hash("sha512", $stringToHash);
-        $headers = [
-            "Content-Type: application/json",
-            "Customer-Key: $customerKey",
-            "Timestamp: $currentTimeInMillis",
-            "Authorization: $hashValue"
-        ];
-        $fields = [
-            'customerKey' => $customerKey,
-            'sendEmail' => true,
-            'email' => [
-                'customerKey' => $customerKey,
-                'fromEmail' => $fromEmail,
-                'fromName' => 'miniOrange',
-                'toEmail' => 'nutan.barad@xecurify.com',
-                'bccEmail' => 'pritee.shinde@xecurify.com',
-                'subject' => 'Installation of SCIM User Provisioning [Free] Plugin',
-                'content' => '<div>' . $content . '</div>',
-            ],
-        ];
-        $field_string = json_encode($fields);
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_ENCODING, "");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $field_string);
-        $response = curl_exec($ch);
-        if (curl_errno($ch)) {
-            $errorMsg = 'SendMail CURL Error: ' . curl_error($ch);
-            curl_close($ch);
-            return json_encode(['status' => 'error', 'message' => $errorMsg]);
-        }
-        curl_close($ch);
-        return $response;
-    }
-	
 	public static function mo_scim_get_operating_system()
 	{
 	
